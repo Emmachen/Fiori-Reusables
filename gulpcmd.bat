@@ -1,3 +1,11 @@
+REM ****************************************************************
+REM --------------------------gulpcmd.bat---------------------------
+REM ::S J Saha::
+REM Make sure you copy this file to the WebContent folder
+REM of your Fiori app project in Eclipse workspace
+REM It is safe to close Eclipse while working with the files - 
+REM gulpfile.js and gulpcmd.bat
+REM *****************************************************************
 @echo off
 call npm config delete proxy
 call npm config delete https-proxy

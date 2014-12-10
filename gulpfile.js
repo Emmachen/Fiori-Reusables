@@ -1,11 +1,20 @@
+//****************************************************************
+//--------------------------gulpfile.js---------------------------
+//::S J Saha::
+//Make sure you copy this file to the WebContent folder
+//of your Fiori app project in Eclipse workspace
+//It is safe to close Eclipse while working with the files - 
+//gulpfile.js and gulpcmd.bat
+//*****************************************************************
 var gulp = require('gulp');
 var tap = require('gulp-tap');
 var fs = require('fs');
 var path = require('path');
 var uglify = require('gulp-uglify');
 var prettyData = require('gulp-pretty-data');
-
-var sMyAppName = "ZPM_NOTIF_CR";
+//********
+var sMyAppName = "ZCustom_FIORILike_app"; //****Change it to your app name before you run gulpcmd.bat
+//********
 var sFilename = "Component-preload";
 var oComp = {
 	name : sMyAppName + "/" + sFilename,
@@ -22,9 +31,7 @@ gulp.task('streamifyComponentJS', function () {
 			oComp.modules[fPath] = file._contents.toString();
 			console.log(fPath.toString());
 			console.log('__________________');
-			//streamifyViewXML();
 		}));
-	//.pipe(streamifyViewXML());
 	console.log('end ComponentJS');
 });
 
@@ -53,11 +60,6 @@ gulp.task('streamifyViewJS', ['streamifyViewXML'], function () {
 				oComp.modules[fPath] = file._contents.toString();
 			console.log(fPath.toString());
 			console.log('__________________');
-
-			////////////////////////////////
-			//myWriteToFile();
-			/////////////////////////////////
-			//streamifyUtilsJS();
 		}));
 	console.log('end ViewJS');
 });
@@ -71,8 +73,6 @@ gulp.task('streamifyUtilsJS', ['streamifyViewJS'], function () {
 				oComp.modules[fPath] = file._contents.toString();
 			console.log(fPath.toString());
 			console.log('__________________');
-
-			//streamifyModelJSON();
 		}));
 	console.log('end UtilsJS');
 });
@@ -89,7 +89,6 @@ gulp.task('streamifyModelJSON', ['streamifyUtilsJS'], function () {
 				oComp.modules[fPath] = file._contents.toString();
 			console.log(fPath.toString());
 			console.log('__________________');
-			//myWriteToFile();
 		}));
 	console.log('end ModelJSON');
 });
@@ -112,10 +111,6 @@ gulp.task('streamifyModelXML', ['streamifyModelJSON'], function () {
 gulp.task('myWriteToFile', ['streamifyModelXML'], function () {
 	console.log('start writefile');
 	var sFileTmp = "jQuery.sap.registerPreloadedModules(" + JSON.stringify(oComp) + ")";
-	//var sFileTmp = 'jQuery.sap.registerPreloadedModules(' + oComp + ')';
-	console.log('>>>>>>>');
-	//console.log(sFileTmp);
-	console.log('<<<<<<<');
 	var sFileNameQ = sFilename + ".js"; //Component-preload.js;
 	fs.writeFile(sFileNameQ, sFileTmp,
 		function (err) {
